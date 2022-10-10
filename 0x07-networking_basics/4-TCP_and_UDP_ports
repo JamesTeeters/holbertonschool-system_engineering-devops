@@ -1,2 +1,3 @@
-#!/bin/bash
-netstat -ltup
+#!/usr/bin/env bash
+# netstat with l flag to print listening sockets and p flag to print application name
+netstat -lp
