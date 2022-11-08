@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
-#commands to automatically configure a Ubuntu machine
-sudo apt -y update
-sudo apt -y install nginx
-sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-sed -i '/listen 80 default_server;/a add_header X-Served-By $hostname;' /etc/nginx/sites-available/default
+# configure Ngnix so that its HTTP response contains a custom header
+sudo apt-get update -y
+sudo apt-get install -y nginx
+sudo chown -R "$USER":"$USER" /var/www/html
+echo "Hello World!" > /var/www/html/index.html
+sudo sed -i '/listen \[::\]:80 default_server;/a rewrite ^/redirect_me/(.*)$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-enabled/default
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+sudo sed -i '/server_name _;/a error_page 404 /404.html; location = /404.html {root /var/www/html; internal;}' /etc/nginx/sites-enabled/default
+sudo sed -i '/location/a add_header X-Served-By $HOSTNAME;' /etc/nginx/sites-enabled/default
 sudo service nginx restart
