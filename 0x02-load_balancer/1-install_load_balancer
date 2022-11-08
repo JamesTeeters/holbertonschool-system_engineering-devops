@@ -1,2 +1,11 @@
 #!/usr/bin/env bash
-# this is a coment
+#Install your load balancer
+sudo apt update
+sudo apt-get install -y haproxy
+sudo chmod 777 /etc/haproxy -R
+echo "listen 4925-lb-01" | sudo tee -a /etc/haproxy/haproxy.cfg
+echo "bind *:80" | sudo tee -a /etc/haproxy/haproxy.cfg
+echo "balance roundrobin" | sudo tee -a /etc/haproxy/haproxy.cfg
+echo "server 4925-web-01 75.101.200.146 check" | sudo tee -a /etc/haproxy/haproxy.cfg
+echo "server 4925-web-02 54.198.59.168 check" | sudo tee -a /etc/haproxy/haproxy.cfg
+sudo service haproxy restart
