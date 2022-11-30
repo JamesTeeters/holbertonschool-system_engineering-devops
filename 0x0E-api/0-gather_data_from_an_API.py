@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """Returns Employee information about todo list progression."""
-from sys import argv
 import json
 import requests
-
+from sys import argv
 
 def task0():
     """argv argument is user_id"""
