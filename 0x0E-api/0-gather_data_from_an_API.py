@@ -4,6 +4,7 @@ import json
 import requests
 from sys import argv
 
+
 def task0():
     """argv argument is user_id"""
     user_id = argv[1]
