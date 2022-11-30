@@ -24,8 +24,6 @@ if __name__ == '__main__':
     """parse through user information"""
     user_data = user_response.text
     parse_user = json.loads(user_data)
-    print(type(parse_user))
-    print(parse_user)
 
     """task functions"""
     user_name = parse_user['name']
