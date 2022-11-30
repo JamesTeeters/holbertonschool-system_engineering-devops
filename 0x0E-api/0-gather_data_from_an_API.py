@@ -5,17 +5,17 @@ import requests
 from sys import argv
 
 
-def task0():
+if __name__ == '__main__':
     """argv argument is user_id"""
     user_id = argv[1]
 
     """get todo information"""
     todo_response = requests.get('https://jsonplaceholder.typicode.com/todos/\
-    ?userId={}'.format(user_id))
+?userId={}'.format(user_id))
 
     """get user information"""
     user_response = requests.get('https://jsonplaceholder.typicode.com/users/\
-    {}'.format(user_id))
+{}'.format(user_id))
 
     """parse through todo information"""
     todo_data = todo_response.text
@@ -24,9 +24,11 @@ def task0():
     """parse through user information"""
     user_data = user_response.text
     parse_user = json.loads(user_data)
+    print(type(parse_user))
+    print(parse_user)
 
     """task functions"""
-    name = parse_user['name']
+    user_name = parse_user['name']
     completed_tasks = 0
     total_tasks = 0
 
@@ -36,12 +38,8 @@ def task0():
             completed_tasks += 1
 
     print("Employee {} is done with tasks({}/{}):\
-    ".format(name, completed_tasks, total_tasks))
+    ".format(user_name, completed_tasks, total_tasks))
 
     for task in parse_todo:
         if task['completed']:
             print("\t {}\n".format(task['title']), end="")
-
-
-if __name__ == '__main__':
-    task0()
